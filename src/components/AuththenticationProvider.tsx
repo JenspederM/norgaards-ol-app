@@ -23,7 +23,11 @@ export const AuthenticationProvider = (props: PropsWithChildren<{}>) => {
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (!user) return;
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
       setUser(user);
 
       const userDocSnap = await getDoc(doc(db, "users", user.uid));
@@ -57,17 +61,13 @@ export const Login = () => {
 
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <div className="p-4 rounded border bg-white space-y-4 ">
-        <div className="text-lg">Login</div>
-
-        <div>
-          <button
-            className="bg-blue-500 text-sm font-medium text-white p-2 rounded"
-            onClick={() => authWithGoogle()}
-          >
-            Log me in, I want øl
-          </button>
-        </div>
+      <div>
+        <button
+          className="bg-blue-500 text-sm font-medium text-white p-2 rounded"
+          onClick={() => authWithGoogle()}
+        >
+          Log me in, I want øl
+        </button>
       </div>
     </div>
   );
