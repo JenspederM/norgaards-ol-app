@@ -2,6 +2,7 @@ import { doc, increment, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useUser } from "./AuththenticationProvider";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -14,7 +15,7 @@ const Beerlist = () => {
 
   useEffect(() => {
     if (!user) return;
-    return onSnapshot(doc(db, "users", user.uid), (snap) => {
+    return onSnapshot(doc(db, "users", user.fbUser.uid), (snap) => {
       const userData = snap.data();
       setBeercount(userData?.bajere ?? 0);
     });
@@ -22,7 +23,7 @@ const Beerlist = () => {
 
   const onBuyBeer = (amount: number) => {
     if (!user) return;
-    updateDoc(doc(db, "users", user.uid), {
+    updateDoc(doc(db, "users", user.fbUser.uid), {
       bajere: increment(amount),
     });
   };
@@ -53,7 +54,7 @@ const Beerlist = () => {
       <div className="py-4 flex flex-col items-center">
         <div>du har købt</div>
         <div className="text-4xl">
-          {beercount} bajer{beercount !== 1 ? "e" : ""}
+          <CountUpTo to={beercount} /> bajer{beercount !== 1 ? "e" : ""}
         </div>
       </div>
 
@@ -77,8 +78,33 @@ const Beerlist = () => {
           </button>
         </div>
       )}
+      {user?.userData.isAdmin && (
+        <div className="pt-20 ">
+          <Link
+            to={"/admin"}
+            className="bg-blue-500 rounded px-4 py-2 text-white"
+          >
+            hold styr på bajerregnskabet
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Beerlist;
+
+// Incrementally count up to a number everytime it changes, and return the current value
+const CountUpTo = (props: { to: number }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const delay = 500 / (props.to - count);
+    if (count >= props.to) return;
+    const timeout = setTimeout(() => {
+      setCount((p) => p + 1);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [count, props.to]);
+  return <>{count}</>;
+};

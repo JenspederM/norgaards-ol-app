@@ -11,9 +11,15 @@ import { atom, useAtom } from "jotai";
 
 const provider = new GoogleAuthProvider();
 
-type UserData = {};
+export type UserData = {
+  uid: string;
+  email: string;
+  displayName: string;
+  bajere: number;
+  isAdmin: boolean;
+};
 
-const userAtom = atom<User | null>(null);
+const userAtom = atom<{ fbUser: User; userData: UserData } | null>(null);
 export const useUser = () => useAtom(userAtom);
 
 export const AuthenticationProvider = (props: PropsWithChildren<{}>) => {
@@ -28,18 +34,22 @@ export const AuthenticationProvider = (props: PropsWithChildren<{}>) => {
         return;
       }
 
-      setUser(user);
-
       const userDocSnap = await getDoc(doc(db, "users", user.uid));
-      if (!userDocSnap.exists()) {
-        await setDoc(doc(db, "users", user.uid), {
+      let userData: UserData;
+      if (userDocSnap.exists()) {
+        userData = userDocSnap.data() as UserData;
+      } else {
+        userData = {
           uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
+          email: user.email ?? "",
+          displayName: user.displayName ?? "",
           bajere: 0,
           isAdmin: false,
-        });
+        };
+        await setDoc(doc(db, "users", user.uid), userData);
       }
+
+      setUser({ fbUser: user, userData });
       setLoading(false);
     });
 
