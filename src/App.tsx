@@ -1,7 +1,7 @@
 import { AuthenticationProvider } from "./components/AuththenticationProvider";
-import Home from "./components/Home";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
-import { Admin } from "./components/Admin";
+import Home from "./pages/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Admin } from "./pages/Admin";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="bg-gray-100 w-full h-screen">
+    <div className="bg-gradient-to-b from-white to-green-200 w-full h-screen">
       <AuthenticationProvider>
         <RouterProvider router={router} />
       </AuthenticationProvider>

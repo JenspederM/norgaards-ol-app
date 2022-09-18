@@ -8,16 +8,11 @@ import {
 import { app, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { atom, useAtom } from "jotai";
+import { UserData } from "../types";
+import Logo from "../assets/Logo.svg";
+import LoginButton from "../assets/LoginButton.svg";
 
 const provider = new GoogleAuthProvider();
-
-export type UserData = {
-  uid: string;
-  email: string;
-  displayName: string;
-  bajere: number;
-  isAdmin: boolean;
-};
 
 const userAtom = atom<{ fbUser: User; userData: UserData } | null>(null);
 export const useUser = () => useAtom(userAtom);
@@ -72,11 +67,12 @@ export const Login = () => {
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div>
+        <img src={Logo} alt="app-logo" className="flex w-1/5 mx-auto" />
         <button
-          className="bg-blue-500 text-sm font-medium text-white p-2 rounded"
           onClick={() => authWithGoogle()}
+          className="flex w-1/5 mx-auto mt-10"
         >
-          Log me in, I want øl
+          <img src={LoginButton} alt="app-logo" className="flex" />
         </button>
       </div>
     </div>
