@@ -13,9 +13,9 @@ const firebaseConfig = {
   storageBucket: "norgaards-ol-app.appspot.com",
   messagingSenderId: "245178053513",
   appId: "1:245178053513:web:181ddd2cf8a24a04432758",
-  measurementId: "G-MZF8TF35E2"
+  measurementId: "G-MZF8TF35E2",
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
