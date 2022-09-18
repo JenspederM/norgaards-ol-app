@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import { UserListItem } from "../components/UserListItem";
 import { Config, UserData } from "../types";
 
-export const Admin = () => {
+const Admin = () => {
   const [users, setUsers] = useState<UserData[]>([]);
   const [bajerPrice, setBajerPrice] = useState(10);
   const [pctMarkup, setPctMarkup] = useState(10);
@@ -82,3 +82,5 @@ export const Admin = () => {
     </div>
   );
 };
+
+export default Admin;

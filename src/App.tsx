@@ -1,7 +1,7 @@
 import { AuthenticationProvider } from "./components/AuththenticationProvider";
-import Home from "./pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Admin } from "./pages/Admin";
+import Home from "./pages/Home";
+import Admin from "./pages/Admin";
 
 const router = createBrowserRouter([
   {
