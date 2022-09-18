@@ -52,6 +52,9 @@ const Beerlist = () => {
   return (
     <div className="w-full h-screen flex flex-col items-center pt-20">
       <div className="py-4 flex flex-col items-center">
+        <div className="font-bold text-xl mb-2">
+          Hej {user?.userData.displayName}!
+        </div>
         <div>du har købt</div>
         <div className="text-4xl">
           <CountUpTo to={beercount} /> bajer{beercount !== 1 ? "e" : ""}
