@@ -1,22 +1,41 @@
-import React, { Children, PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   User,
 } from "firebase/auth";
-import { app } from "../firebase";
+import { app, db } from "../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { atom, useAtom } from "jotai";
 
 const provider = new GoogleAuthProvider();
 
+type UserData = {};
+
+const userAtom = atom<User | null>(null);
+export const useUser = () => useAtom(userAtom);
+
 export const AuthenticationProvider = (props: PropsWithChildren<{}>) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useUser();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const auth = getAuth(app);
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (!user) return;
       setUser(user);
+
+      const userDocSnap = await getDoc(doc(db, "users", user.uid));
+      if (!userDocSnap.exists()) {
+        await setDoc(doc(db, "users", user.uid), {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          bajere: 0,
+          isAdmin: false,
+        });
+      }
       setLoading(false);
     });
 

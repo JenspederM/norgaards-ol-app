@@ -1,13 +1,11 @@
-import { useState } from "react";
-import { AuthenticationProvider } from "./components/Login";
+import { AuthenticationProvider } from "./components/AuththenticationProvider";
+import Beerlist from "./components/Home";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="bg-gray-100 w-full h-screen">
       <AuthenticationProvider>
-        <div>Authenticated...</div>
+        <Beerlist />
       </AuthenticationProvider>
     </div>
   );
