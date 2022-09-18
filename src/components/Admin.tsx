@@ -69,7 +69,7 @@ const UserListItem = (props: { user: UserData }) => {
     >
       <div className="w-1/4">{user.displayName}</div>
       <div className="w-1/4 flex justify-center">{user.bajere}</div>
-      <div className="w-1/4 flex justify-center">{user.bajere * 10}</div>
+      <div className="w-1/4 flex justify-center">{user.bajere * 10} kr.</div>
       <div className="w-1/4 flex justify-end">
         <button
           className="bg-red-300 px-4 py-1 rounded"
