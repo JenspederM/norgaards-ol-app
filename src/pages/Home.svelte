@@ -107,7 +107,9 @@
     .reduce((acc, item) => acc + item.salesPrice(), 0);
 
   $: cart = user.basket.getItems();
-  $: beersInStock = inventory ? inventory.filter((beer) => beer.isActive) : [];
+  $: beersInStock = inventory
+    ? inventory.filter((beer) => beer.isActive && beer.nLeft > 0)
+    : [];
 </script>
 
 <div class="flex flex-col items-center flex-grow w-full px-4">
@@ -137,8 +139,14 @@
             {cart.filter((el) => el.name === beer.name).length}
           </div>
           <button
+            disabled={cart.filter((el) => el.name === beer.name).length >=
+              beer.nLeft}
             on:click={() => addBeerToBasket(beer)}
-            class="px-3 py-2 bg-gradient-to-b from-green-800 to-green-500 rounded-full text-white"
+            class="px-3 py-2 rounded-full text-white {cart.filter(
+              (el) => el.name === beer.name
+            ).length >= beer.nLeft
+              ? 'bg-gray-500'
+              : 'bg-gradient-to-b from-green-800 to-green-500'}"
           >
             <Fa icon={faArrowUp} />
           </button>
