@@ -66,30 +66,6 @@ class Basket {
     }
   }
 
-  buy(user) {
-    let result = {};
-    this.items.forEach((beer) => {
-      if (result[beer.uid]) {
-        result[beer.uid].total += beer.salesPrice();
-        result[beer.uid].amount += 1;
-      } else {
-        result[beer.uid] = {
-          total: beer.salesPrice(),
-          amount: 1,
-          date: new Date(),
-          isPayed: false,
-          name: beer.uid,
-          price: beer.salesPrice(),
-        };
-      }
-    });
-    Object.keys(result).forEach(async (beerUid) => {
-      await updateDoc(doc(db, "users", user.me.uid), {
-        beerHistory: arrayUnion(result[beerUid]),
-      });
-    });
-    this.clear();
-  }
 }
 
 export const beerConverter: FirestoreDataConverter<Beer> = {
