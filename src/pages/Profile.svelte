@@ -83,10 +83,10 @@
       class="flex flex-col w-full items-center justify-between bg-gray-50 px-4 py-2 space-y-2"
     >
       <div class={owsMoney > 0 ? "text-lg font-bold" : ""}>
-        Du skylder {owsMoney} kroner for {owsCount} øl
+        Skylder: {owsMoney} kr. for {owsCount} øl
       </div>
       <div>
-        Du har brugt {totalMoney} kroner på {totalOrderCount} ordre{totalOrderCount >
+        Total: {totalMoney} kroner på {totalOrderCount} ordre{totalOrderCount >
         0
           ? "r"
           : ""}
