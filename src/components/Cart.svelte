@@ -57,25 +57,33 @@
   >
     {#each uniqueItems as beer}
       <div
-        class="flex items-center rounded-xl overflow-hidden space-x-2 bg-white px-8 py-4 justify-around"
+        class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
       >
-        <div>
-          {cart.filter((item) => item.uid === beer.uid).length} stk.
+        <div class="flex flex-col w-full sm:flex-row sm:text-center">
+          <div class="flex sm:flex-col justify-between w-full">
+            <div class="font-bold">Ølmærke</div>
+            <div>{beer.name}</div>
+          </div>
+          <div class="flex sm:flex-col justify-between w-full">
+            <div class="font-bold">Stk</div>
+            <div>{cart.filter((item) => item.uid === beer.uid).length}</div>
+          </div>
+          <div class="flex sm:flex-col justify-between w-full">
+            <div class="font-bold">Pris per stk.</div>
+            <div>{beer.salesPrice()}</div>
+          </div>
+          <div class="flex sm:flex-col justify-between w-full">
+            <div class="font-bold">Total</div>
+            <div>
+              {cart.filter((el) => el.name == beer.name).length *
+                beer.salesPrice()}
+            </div>
+          </div>
         </div>
-        <div>
-          {beer.name}
-        </div>
-        <div>
-          Pris: {beer.salesPrice()} Kr.
-        </div>
-        <div>
-          Total: {cart.filter((el) => el.name == beer.name).length *
-            beer.salesPrice()}
-        </div>
-        <div>
+        <div class="flex w-full space-x-2">
           <button
             on:click={() => removeBeers(beer)}
-            class="flex flex-row space-x-2 px-4 py-2 rounded-xl items-center justify-center bg-gradient-to-b from-red-500 to-red-700 w-full text-white"
+            class="flex flex-row space-x-2 px-4 py-2 rounded-xl items-center justify-center bg-gradient-to-b from-red-800 to-red-600 w-full text-white"
           >
             <div>
               <Fa icon={faBeer} />
