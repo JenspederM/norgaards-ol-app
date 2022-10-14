@@ -3,6 +3,7 @@
   import ProductList from "../lib/ProductList.svelte";
   import Fa from "svelte-fa";
   import {
+    faClose,
     faDollarSign,
     faShoppingCart,
     faTrashAlt,
@@ -17,7 +18,7 @@
 
   let user;
   let inventory;
-  let isOpen = false;
+  let isOpen = true;
 
   userStore.subscribe((v) => {
     user = v;
@@ -121,14 +122,4 @@
 
 <ProductList />
 
-<Modal bind:open={isOpen}>
-  <div slot="header" class="flex flex-row justify-between items-center w-full">
-    <div>Kurv</div>
-    <div>
-      <button on:click={() => (isOpen = false)}>X</button>
-    </div>
-  </div>
-  <div slot="body" class="flex flex-col items-center justify-end h-full w-full">
-    <Cart />
-  </div>
-</Modal>
+<Cart bind:isOpen />
