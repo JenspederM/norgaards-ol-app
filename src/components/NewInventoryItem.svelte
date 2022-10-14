@@ -69,7 +69,7 @@
   </div>
   <div
     slot="body"
-    class="flex flex-col flex-grow px-8 py-4 bg-gradient-to-b from-green-700 to-green-600"
+    class="flex flex-col flex-grow px-8 py-4 bg-gradient-to-b from-green-700 to-green-600 overflow-auto"
   >
     <Input label="Ølmærke" type="text" placeholder="Tuborg" bind:value={name} />
     <Input
@@ -95,7 +95,7 @@
     slot="footer"
     class="flex items-center justify-center px-8 py-4 bg-gradient-to-b from-green-600 to-green-500"
   >
-    <div class="flex w-1/3 items-center justify-start">
+    <div class="flex w-2/3 sm:w-1/3 items-center justify-start">
       <button
         class="flex space-x-2 items-center py-2 px-4 rounded-xl bg-gradient-to-b from-red-800 to-red-500 text-white outline-double"
         on:click={() => toggleModal()}
