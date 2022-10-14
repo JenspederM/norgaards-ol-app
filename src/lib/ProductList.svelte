@@ -37,7 +37,6 @@
 
   $: cart = user.basket.getItems();
   $: beersInStock = inventory ? inventory.filter((beer) => beer.isActive) : [];
-  $: beersInStock.length === 0 ? isLoading.set(true) : isLoading.set(false);
 </script>
 
 <div

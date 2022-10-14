@@ -44,8 +44,6 @@
       users = result;
     }
   );
-
-  $: users ? isLoading.set(true) : isLoading.set(false);
 </script>
 
 <div class="hidden {params.class}">{currentRoute}</div>

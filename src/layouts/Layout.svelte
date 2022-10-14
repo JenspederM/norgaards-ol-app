@@ -31,7 +31,7 @@
       <div class="flex flex-col flex-grow w-full items-center justify-center">
         <svg
           aria-hidden="true"
-          class="mr-2 w-1/2 text-gray-200 animate-spin dark:text-transparent fill-green-600"
+          class="mr-2 h-16 w-16 text-gray-200 animate-spin dark:text-transparent fill-green-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
