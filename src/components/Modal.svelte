@@ -20,7 +20,9 @@
     <div
       class="h-full w-full mx-auto md:h-1/2 md:w-2/3 lg:w-2/3 xl:w-2/3 shadow-xl z-50"
     >
-      <div class="flex flex-col justify-between h-full">
+      <div
+        class="flex flex-col justify-between h-full md:rounded-xl md:overflow-hidden"
+      >
         <slot
           name="header"
           class="flex flex-row justify-between items-center w-full px-8 py-4 bg-gray-200 text-4xl font-bold"
