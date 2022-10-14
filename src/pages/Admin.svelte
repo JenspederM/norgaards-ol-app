@@ -11,7 +11,7 @@
     faRefresh,
   } from "@fortawesome/free-solid-svg-icons";
   import { Navigate } from "svelte-router-spa";
-  import { isLoading } from "src/stores";
+  import { isLoading } from "../stores";
 
   export let currentRoute;
   export let params;
