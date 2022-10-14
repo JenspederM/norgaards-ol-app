@@ -46,64 +46,71 @@
   );
 </script>
 
-<div class="hidden {params.class}">{currentRoute}</div>
+<div class="flex flex-col flex-grow items-center w-full px-4">
+  <div class="hidden {params.class}">{currentRoute}</div>
 
-<div
-  class="flex w-full sm:w-2/3 pb-1 px-2 text-xs md:text-sm lg:text-xl text-white items-center justify-center space-x-3"
->
-  <Navigate
-    styles="flex w-full sm:w-1/2 justify-center items-center bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
-    to="inventory"
+  <div
+    class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2 py-2"
   >
-    <button class="flex space-x-2 items-center justify-center">
-      <Fa icon={faBinoculars} />
-      <span>Se Lager</span>
-      <Fa icon={faBoxArchive} />
-    </button>
-  </Navigate>
-  <button
-    on:click={() => toggleOpenCreateNewBeer()}
-    class="flex w-full sm:w-1/2 justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
-  >
-    <Fa icon={faPlusCircle} />
-    <span>Ny Øl</span>
-    <Fa icon={faBeer} />
-  </button>
-</div>
-
-<div
-  class="flex w-full text-md sm:text-xl lg:text-2xl xl:text-4xl 2xl:text-6xl font-bold sm:w-2/3 border-b-4 py-1 px-2 border-green-600 mb-1"
->
-  Brugere
-</div>
-<div class="flex flex-col w-full sm:w-2/3 flex-grow overflow-auto px-2">
-  {#each users.sort((a, b) => b.getAmountOwed() - a.getAmountOwed()) as currentUser}
-    <div
-      class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
-    >
+    {#each users.sort((a, b) => b.getAmountOwed() - a.getAmountOwed()) as currentUser}
       <div
-        class="flex flex-col text-sm sm:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl w-full sm:flex-row sm:text-center"
+        class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
       >
-        <div class="flex sm:flex-col sm:w-2/4 justify-between w-full">
-          <div class="font-bold">Navn</div>
+        <div
+          class="flex w-full items-center justify-between font-bold text-white py-2 px-4 bg-gradient-to-b {currentUser.getAmountOwed() >
+          0
+            ? 'from-red-800 to-red-600'
+            : 'from-green-800 to-green-600'}"
+        >
           <div>{currentUser.displayName}</div>
         </div>
-        <div class="flex sm:flex-col sm:w-1/4 justify-between w-full">
-          <div class="font-bold">Skylder</div>
-          <div>{currentUser.getAmountOwed()} Kr.</div>
-        </div>
-        <div class="flex sm:flex-col sm:w-1/4 justify-center w-full">
-          <button
-            disabled={currentUser.getAmountOwed() === 0}
-            on:click={() => resetUser(currentUser)}
-            class="flex items-center justify-center space-x-2 text-white rounded-xl px-4 py-1 bg-gradient-to-b from-red-800 to-red-600"
-          >
-            <div>Nulstil</div>
-            <Fa icon={faRefresh} />
-          </button>
+        <div
+          class="flex w-full items-center justify-between bg-gray-50 px-4 py-2"
+        >
+          <div class={currentUser.getAmountOwed() > 0 ? "font-bold" : ""}>
+            Skylder: {currentUser.getAmountOwed()} Kr.
+          </div>
+          <div>
+            <button
+              disabled={currentUser.getAmountOwed() === 0}
+              on:click={() => resetUser(currentUser)}
+              class="flex w-full items-center space-x-2 justify-center text-white py-1 px-4 rounded-xl {currentUser.getAmountOwed() >
+              0
+                ? 'bg-gradient-to-b from-red-800 to-red-600'
+                : 'bg-gray-400'}"
+            >
+              <div>Nulstil</div>
+              <Fa icon={faRefresh} />
+            </button>
+          </div>
         </div>
       </div>
+    {/each}
+  </div>
+  <div class="flex w-full py-2 text-white text-sm space-x-4">
+    <div class="w-full">
+      <Navigate
+        styles="flex justify-center items-center bg-gradient-to-b from-green-800 to-green-600 rounded-xl"
+        to="inventory"
+      >
+        <button
+          class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+        >
+          <Fa icon={faBoxArchive} />
+          <div>Se Lager</div>
+        </button>
+      </Navigate>
     </div>
-  {/each}
+    <div class="w-full">
+      <button
+        on:click={() => toggleOpenCreateNewBeer()}
+        class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+      >
+        <Fa icon={faBeer} />
+        <div>Ny Øl</div>
+      </button>
+    </div>
+  </div>
 </div>
+
 <NewInventoryItem bind:isOpen={isCreateNewBeerOpen} />
