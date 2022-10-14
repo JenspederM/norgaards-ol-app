@@ -59,6 +59,7 @@
     });
 
     user.basket.clear();
+    isOpen = false;
 
     console.debug(user.basket);
   };
