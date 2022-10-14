@@ -30,7 +30,10 @@
         beerHistory: [],
         isAdmin: false,
       });
-      await setDoc(doc(db, "users", newUser.uid), newUser);
+      await setDoc(
+        doc(db, "users", newUser.uid).withConverter(userConverter),
+        newUser
+      );
       userStore.set(newUser);
     }
 
