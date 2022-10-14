@@ -52,10 +52,13 @@
   $: totalMoney = user.beerHistory.reduce((p, c) => p + c.total, 0);
   $: totalCount = user.beerHistory.length;
   $: totalBeerPrice = user.beerHistory.reduce((p, c) => p + c.price, 0);
-  $: averageTotalCost = Math.round(totalMoney / totalCount);
+  $: averageTotalCost =
+    totalBeerPrice > 0 ? Math.round(totalMoney / totalCount) : 0;
   // Number.EPSILON is used to correct for floating point math errors
   $: averageBeerPrice =
-    Math.round(((totalBeerPrice + Number.EPSILON) / totalCount) * 100) / 100;
+    totalBeerPrice > 0
+      ? Math.round(((totalBeerPrice + Number.EPSILON) / totalCount) * 100) / 100
+      : 0;
 </script>
 
 <div class="hidden {params.class}">{currentRoute}</div>

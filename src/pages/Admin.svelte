@@ -70,40 +70,35 @@
   </button>
 </div>
 
-<div class="flex w-full sm:w-2/3 border-b-4 py-1 px-2 border-green-600">
-  <div class="flex flex-row w-3/4">
-    <div class="flex flex-grow items-center text-sm sm:text-lg lg:text-2xl">
-      <div class="flex font-bold w-3/5">Navn</div>
-      <div class="flex font-bold w-2/5 justify-center">Skylder</div>
-    </div>
-  </div>
-  <div class="flex flex-col w-1/4 items-center" />
+<div
+  class="flex w-full text-xl font-bold sm:w-2/3 border-b-4 py-1 px-2 border-green-600 mb-1"
+>
+  Brugere
 </div>
-<div class="flex flex-col w-full sm:w-2/3 flex-grow overflow-auto">
+<div class="flex flex-col w-full sm:w-2/3 flex-grow overflow-auto px-2">
   {#each users.sort((a, b) => b.getAmountOwed() - a.getAmountOwed()) as currentUser}
     <div
-      class="flex items-center w-full px-2 py-2 border-b-2 border-green-600 text-md sm:text-xl lg:text-2xl"
+      class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
     >
-      <div class="flex items-center w-3/4">
-        <div class="flex items-center w-3/5 overflow-auto">
-          {currentUser.displayName}
+      <div class="flex flex-col w-full sm:flex-row sm:text-center">
+        <div class="flex sm:flex-col sm:w-2/4 justify-between w-full">
+          <div class="font-bold">Navn</div>
+          <div>{currentUser.displayName}</div>
         </div>
-        <div class="flex justify-center w-2/5 space-x-1">
-          <div>{currentUser.getAmountOwed()}</div>
-          <div>kr.</div>
+        <div class="flex sm:flex-col sm:w-1/4 justify-between w-full">
+          <div class="font-bold">Skylder</div>
+          <div>{currentUser.getAmountOwed()} Kr.</div>
         </div>
-      </div>
-      <div class="flex space-x-3 w-1/4 justify-center">
-        <button
-          disabled={currentUser.getAmountOwed() === 0}
-          on:click={() => resetUser(currentUser)}
-          class="flex sm:w-1/2 justify-center items-center space-x-2 p-3 rounded-full text-md md:text-lg text-white {currentUser.getAmountOwed() ===
-          0
-            ? 'bg-gray-500'
-            : 'bg-gradient-to-b from-red-800 to-red-600'}"
-        >
-          <Fa icon={faRefresh} />
-        </button>
+        <div class="flex sm:flex-col sm:w-1/4 justify-center w-full">
+          <button
+            disabled={currentUser.getAmountOwed() === 0}
+            on:click={() => resetUser(currentUser)}
+            class="flex items-center justify-center space-x-2 text-white rounded-xl px-4 py-1 bg-gradient-to-b from-red-800 to-red-600"
+          >
+            <div>Nulstil</div>
+            <Fa icon={faRefresh} />
+          </button>
+        </div>
       </div>
     </div>
   {/each}
