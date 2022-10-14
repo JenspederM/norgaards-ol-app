@@ -1,13 +1,23 @@
 <script lang="ts">
-  import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
+  import {
+    collection,
+    deleteDoc,
+    doc,
+    onSnapshot,
+    updateDoc,
+  } from "firebase/firestore";
   import { Beer, db, beerConverter } from "../Firebase";
   import Fa from "svelte-fa";
-  import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+  import { faPowerOff, faTrash } from "@fortawesome/free-solid-svg-icons";
+  import Modal from "../components/Modal.svelte";
 
   export let currentRoute;
   export let params;
 
   let inventory: Beer[];
+  let confirmOpen = false;
+  let confirmed = 0;
+  let beerToDelete: Beer;
 
   onSnapshot(
     collection(db, "inventory").withConverter(beerConverter),
@@ -26,6 +36,25 @@
     });
   };
 
+  const deleteBeer = (beer?: Beer) => {
+    confirmOpen = true;
+    if (confirmed == 1) {
+      console.log(`Deleting... ${beerToDelete.uid}`);
+      deleteDoc(doc(db, "inventory", beerToDelete.uid));
+      beerToDelete = undefined;
+      confirmOpen = false;
+      confirmed = 0;
+    } else {
+      if (beer) {
+        beerToDelete = beer;
+        confirmed++;
+      } else {
+        confirmed = 0;
+      }
+      console.log(beerToDelete);
+    }
+  };
+
   $: orderedInventory = !inventory
     ? []
     : inventory.sort((a, b) => {
@@ -36,7 +65,7 @@
 <div class="hidden {params.class}">{currentRoute}</div>
 
 {#if inventory}
-  <div class="w-full overflow-auto space-y-2 py-2 px-2">
+  <div class="w-full overflow-auto space-y-2 py-2 px-2 flex-grow">
     {#each orderedInventory as beer}
       <div
         class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
@@ -59,16 +88,57 @@
             <div>{beer.nBeers}</div>
           </div>
         </div>
-        <button
-          class="flex items-center justify-center space-x-2 text-white rounded-xl px-4 py-1 w-1/2 {beer.isActive
-            ? 'bg-gradient-to-b from-red-800 to-red-600'
-            : 'bg-gradient-to-b from-green-800 to-green-600'}"
-          on:click={() => toggleActive(beer)}
-        >
-          <div>{beer.isActive ? "Deaktiver" : "Aktiver"}</div>
-          <div><Fa icon={beer.isActive ? faPowerOff : faPowerOff} /></div>
-        </button>
+        <div class="flex w-full space-x-2">
+          <button
+            class="flex items-center justify-center space-x-2 text-white rounded-xl px-4 py-1 w-1/2 bg-gradient-to-b from-red-800 to-red-600"
+            on:click={() => deleteBeer(beer)}
+          >
+            <div>Slet</div>
+            <div><Fa icon={faTrash} /></div>
+          </button>
+          <button
+            class="flex items-center justify-center space-x-2 text-white rounded-xl px-4 py-1 w-1/2 {beer.isActive
+              ? 'bg-gradient-to-b from-red-800 to-red-600'
+              : 'bg-gradient-to-b from-green-800 to-green-600'}"
+            on:click={() => toggleActive(beer)}
+          >
+            <div>{beer.isActive ? "Deaktiver" : "Aktiver"}</div>
+            <div><Fa icon={beer.isActive ? faPowerOff : faPowerOff} /></div>
+          </button>
+        </div>
       </div>
     {/each}
   </div>
 {/if}
+
+<Modal bind:open={confirmOpen}>
+  <div slot="body" class="flex flex-col items-center justify-center h-full">
+    <div
+      class="flex flex-col w-2/3 h-1/3 items-center bg-white px-4 py-2 rounded-xl"
+    >
+      <div>Bekræft sletning af</div>
+      <div class="font-bold">
+        {beerToDelete ? beerToDelete.name : ""}
+      </div>
+      <div class="flex flex-col flex-grow justify-end">
+        <div class="flex flex-row space-x-2">
+          <button
+            class="text-white bg-gradient-to-b from-red-800 to-red-600 px-4 py-2 rounded-xl"
+            on:click={() => {
+              confirmed = 0;
+              confirmOpen = false;
+            }}
+          >
+            Fortryd
+          </button>
+          <button
+            class="text-white bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+            on:click={() => deleteBeer()}
+          >
+            Bekræft
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Modal>
