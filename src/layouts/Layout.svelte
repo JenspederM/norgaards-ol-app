@@ -22,7 +22,7 @@
   class="flex flex-col items-center w-full absolute inset-0 bg-gradient-to-b from-white to-green-300"
 >
   {#if currentRoute.path !== "/login"}
-    <div class="flex flex-col items-center pb-8">
+    <div class="flex flex-col items-center pb-8 border-b-4 border-green-600">
       <button class="pt-8 w-1/2 md:w-1/3 lg:w-1/5">
         <img src={Logo} alt="logo" />
       </button>
