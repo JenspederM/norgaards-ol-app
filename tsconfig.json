@@ -7,6 +7,9 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "types": [
+      "vite-plugin-pwa/client"
+    ],
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
      * Disable checkJs if you'd like to use dynamic types in JS.
@@ -22,7 +25,7 @@
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.js",
-    "src/**/*.svelte"
+    "src/**/*.svelte",
   ],
   "references": [
     {

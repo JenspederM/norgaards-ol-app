@@ -2,7 +2,7 @@
   import Fa from "svelte-fa";
   import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
   import { Beer, beerConverter, db, User } from "../Firebase";
-  import { userStore } from "../stores";
+  import { isLoading, userStore } from "../stores";
   import { collection, onSnapshot } from "firebase/firestore";
 
   let inventory: Beer[];
@@ -37,6 +37,7 @@
 
   $: cart = user.basket.getItems();
   $: beersInStock = inventory ? inventory.filter((beer) => beer.isActive) : [];
+  $: beersInStock.length === 0 ? isLoading.set(true) : isLoading.set(false);
 </script>
 
 <div

@@ -11,6 +11,7 @@
     faRefresh,
   } from "@fortawesome/free-solid-svg-icons";
   import { Navigate } from "svelte-router-spa";
+  import { isLoading } from "src/stores";
 
   export let currentRoute;
   export let params;
@@ -43,6 +44,8 @@
       users = result;
     }
   );
+
+  $: users ? isLoading.set(true) : isLoading.set(false);
 </script>
 
 <div class="hidden {params.class}">{currentRoute}</div>

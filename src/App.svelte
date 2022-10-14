@@ -8,6 +8,7 @@
   import Inventory from "./pages/Inventory.svelte";
   import Unauthorized from "./lib/403.svelte";
   import Layout from "./layouts/Layout.svelte";
+  import RegisterSw from "./lib/registerSW.svelte";
 
   let user;
 
@@ -83,3 +84,4 @@
 </script>
 
 <Router {routes} />
+<RegisterSw />
