@@ -13,7 +13,7 @@ export default defineConfig({
       },
       registerType: "autoUpdate",
       devOptions: {
-        enabled: true
+        enabled: process.env.NODE_ENV === "development",
       },
       manifest: {
         "background_color": "#ffffff",
