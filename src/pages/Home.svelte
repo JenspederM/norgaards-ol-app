@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { inventoryStore, userStore } from "../stores";
-  import ProductList from "../lib/ProductList.svelte";
   import Fa from "svelte-fa";
   import {
+    faArrowDown,
+    faArrowUp,
     faDollarSign,
     faShoppingCart,
     faTrashAlt,
   } from "@fortawesome/free-solid-svg-icons";
+  import { Beer, beerConverter, db, User } from "../Firebase";
+  import { userStore } from "../stores";
   import {
     arrayUnion,
     collection,
@@ -15,19 +17,29 @@
     onSnapshot,
     updateDoc,
   } from "firebase/firestore";
-  import { Beer, beerConverter, db } from "../Firebase";
   import Cart from "../components/Cart.svelte";
 
   export let currentRoute;
   export let params;
+  let isCartOpen = false;
+  let inventory: Beer[];
+  let user: User;
 
-  let user;
-  let inventory;
-  let isOpen = false;
-
-  userStore.subscribe((v) => {
-    user = v;
+  userStore.subscribe((value) => {
+    user = value;
   });
+
+  function addBeerToBasket(beer) {
+    user.basket.addItem(beer);
+    userStore.set(user);
+    console.debug(user.basket);
+  }
+
+  const removeBeerFromBasket = (beer) => {
+    user.basket.removeItem(beer);
+    userStore.set(user);
+    console.debug(user.basket);
+  };
 
   onSnapshot(
     collection(db, "inventory").withConverter(beerConverter),
@@ -76,7 +88,6 @@
         beerHistory: arrayUnion(result[beerUid]),
       });
     });
-    inventoryStore.set(inventory);
     userStore.set(user);
 
     console.debug(user.basket);
@@ -87,51 +98,78 @@
     userStore.set(user);
   };
 
-  const viewCart = () => {
-    isOpen = true;
+  const toggleCart = () => {
+    isCartOpen = true;
   };
 
   $: total = user.basket
     .getItems()
     .reduce((acc, item) => acc + item.salesPrice(), 0);
+
+  $: cart = user.basket.getItems();
+  $: beersInStock = inventory ? inventory.filter((beer) => beer.isActive) : [];
 </script>
 
-<div class="hidden {params.class}">{currentRoute}</div>
+<div class="flex flex-col items-center flex-grow w-full px-4">
+  <div class="hidden {params.class}">{currentRoute}</div>
 
-<div
-  class="w-1/3 pb-2 flex items-center text-xl sm:2xl space-x-1 font-bold justify-center"
->
-  <div>Total</div>
-  <div>{total}</div>
-  <div>kr.</div>
+  <div
+    class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2 py-2"
+  >
+    {#each beersInStock as beer}
+      <div
+        class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
+      >
+        <div
+          class="flex items-center font-bold w-full justify-between bg-gradient-to-b from-green-800 to-green-600 text-white py-2 px-4"
+        >
+          <div>{beer.name}</div>
+          <div>{beer.salesPrice()} Kr.</div>
+        </div>
+        <div class="flex w-full space-x-1 py-2 bg-gray-50 justify-center">
+          <button
+            on:click={() => removeBeerFromBasket(beer)}
+            class="px-3 py-2 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
+          >
+            <Fa icon={faArrowDown} />
+          </button>
+          <div class="flex w-1/5 justify-center items-center px-3">
+            {cart.filter((el) => el.name === beer.name).length}
+          </div>
+          <button
+            on:click={() => addBeerToBasket(beer)}
+            class="px-3 py-2 bg-gradient-to-b from-green-800 to-green-500 rounded-full text-white"
+          >
+            <Fa icon={faArrowUp} />
+          </button>
+        </div>
+      </div>
+    {/each}
+  </div>
+
+  <div
+    class="flex w-full justify-center space-x-2 font-bold border-y-4 border-green-600"
+  >
+    <div>Total</div>
+    <div>{total}</div>
+    <div>kr.</div>
+  </div>
+  <div class="flex w-full py-2 text-white space-x-4">
+    <button
+      class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-red-800 to-red-600 px-4 py-2 rounded-xl"
+      on:click={() => resetCart()}
+    >
+      <Fa icon={faTrashAlt} />
+      <div>Ryd Alt</div>
+    </button>
+    <button
+      class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+      on:click={() => toggleCart()}
+    >
+      <Fa icon={faShoppingCart} />
+      <div>Kurv</div>
+    </button>
+  </div>
 </div>
-<div
-  class="flex w-full sm:w-2/3 pb-1 px-2 text-xs md:text-sm lg:text-xl text-white items-center justify-center space-x-3"
->
-  <button
-    class="flex w-full sm:w-1/2 justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
-    on:click={() => viewCart()}
-  >
-    <Fa icon={faShoppingCart} />
-    <div>Kurv</div>
-  </button>
-  <button
-    class="flex w-full sm:w-1/2 justify-center items-center space-x-2 bg-gradient-to-b from-red-800 to-red-600 px-4 py-2 rounded-xl"
-    on:click={() => resetCart()}
-  >
-    <Fa icon={faTrashAlt} />
-    <div>Ryd Alt</div>
-  </button>
 
-  <button
-    class="flex w-full sm:w-1/2 justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
-    on:click={() => confirmPurchase()}
-  >
-    <Fa icon={faDollarSign} />
-    <div>Køb</div>
-  </button>
-</div>
-
-<ProductList />
-
-<Cart bind:isOpen />
+<Cart bind:isOpen={isCartOpen} />
