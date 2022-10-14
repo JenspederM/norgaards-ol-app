@@ -17,9 +17,7 @@
     class="modal z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center lg:p-0"
   >
     <div class="modal-overlay fixed w-full h-full bg-gray-900 opacity-50" />
-    <div
-      class="h-full w-full mx-auto md:h-1/2 md:w-2/3 lg:w-2/3 xl:w-2/3 shadow-xl z-50"
-    >
+    <div class="h-full w-full mx-auto md:h-1/2 md:w-2/3 lg:w-2/3 xl:w-2/3 z-50">
       <div
         class="flex flex-col justify-between h-full md:rounded-xl md:overflow-hidden"
       >
