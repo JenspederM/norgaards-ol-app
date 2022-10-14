@@ -19,15 +19,13 @@ import { getAuth } from "firebase/auth";
 import type { UserData, BeerInStock, BeerHistory } from "../types";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD9PUoOPa2BeH49XQZ9tg4rC9jrgiFCbxM",
-  authDomain: "bikegame-14ade.firebaseapp.com",
-  databaseURL:
-    "https://bikegame-14ade-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "bikegame-14ade",
-  storageBucket: "bikegame-14ade.appspot.com",
-  messagingSenderId: "125804774745",
-  appId: "1:125804774745:web:3d5f459c90ab74d2ee7848",
-  measurementId: "G-ZMJCQQJ7LF",
+  apiKey: "AIzaSyD-puE41J_NDaEdYFBRwYixGsK7i2DJqgQ",
+  authDomain: "norgaards-ol-app.firebaseapp.com",
+  projectId: "norgaards-ol-app",
+  storageBucket: "norgaards-ol-app.appspot.com",
+  messagingSenderId: "245178053513",
+  appId: "1:245178053513:web:181ddd2cf8a24a04432758",
+  measurementId: "G-MZF8TF35E2"
 };
 
 // Initialize Firebase

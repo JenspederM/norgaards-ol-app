@@ -7,8 +7,15 @@
     faShoppingCart,
     faTrashAlt,
   } from "@fortawesome/free-solid-svg-icons";
-  import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
-  import { beerConverter, db } from "../Firebase";
+  import {
+    arrayUnion,
+    collection,
+    doc,
+    getDoc,
+    onSnapshot,
+    updateDoc,
+  } from "firebase/firestore";
+  import { Beer, beerConverter, db } from "../Firebase";
   import Cart from "../components/Cart.svelte";
 
   export let currentRoute;
@@ -22,9 +29,16 @@
     user = v;
   });
 
-  inventoryStore.subscribe((v) => {
-    inventory = v;
-  });
+  onSnapshot(
+    collection(db, "inventory").withConverter(beerConverter),
+    (snapshot) => {
+      const beers: Beer[] = [];
+      snapshot.forEach((doc) => {
+        beers.push(doc.data());
+      });
+      inventory = beers;
+    }
+  );
 
   const confirmPurchase = () => {
     let result = {};
