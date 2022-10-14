@@ -3,12 +3,10 @@
   import ProductList from "../lib/ProductList.svelte";
   import Fa from "svelte-fa";
   import {
-    faClose,
     faDollarSign,
     faShoppingCart,
     faTrashAlt,
   } from "@fortawesome/free-solid-svg-icons";
-  import Modal from "../components/Modal.svelte";
   import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
   import { beerConverter, db } from "../Firebase";
   import Cart from "../components/Cart.svelte";
@@ -18,7 +16,7 @@
 
   let user;
   let inventory;
-  let isOpen = true;
+  let isOpen = false;
 
   userStore.subscribe((v) => {
     user = v;
