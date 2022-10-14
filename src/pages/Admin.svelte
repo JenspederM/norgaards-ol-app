@@ -72,7 +72,7 @@
 </div>
 
 <div
-  class="flex w-full text-xl font-bold sm:w-2/3 border-b-4 py-1 px-2 border-green-600 mb-1"
+  class="flex w-full text-md sm:text-xl lg:text-2xl xl:text-4xl 2xl:text-6xl font-bold sm:w-2/3 border-b-4 py-1 px-2 border-green-600 mb-1"
 >
   Brugere
 </div>
@@ -81,7 +81,9 @@
     <div
       class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
     >
-      <div class="flex flex-col w-full sm:flex-row sm:text-center">
+      <div
+        class="flex flex-col text-sm sm:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl w-full sm:flex-row sm:text-center"
+      >
         <div class="flex sm:flex-col sm:w-2/4 justify-between w-full">
           <div class="font-bold">Navn</div>
           <div>{currentUser.displayName}</div>
