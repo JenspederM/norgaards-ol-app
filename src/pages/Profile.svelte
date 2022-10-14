@@ -47,17 +47,21 @@
     (p, c) => (c.isPayed ? p : p + c.total),
     0
   );
-
   $: owsCount = user.beerHistory.filter((c) => !c.isPayed).length;
+
   $: totalMoney = user.beerHistory.reduce((p, c) => p + c.total, 0);
-  $: totalCount = user.beerHistory.length;
+  $: totalOrderCount = user.beerHistory.length;
+  $: totalBeerCount = user.beerHistory.reduce((p, c) => p + c.amount, 0);
   $: totalBeerPrice = user.beerHistory.reduce((p, c) => p + c.price, 0);
-  $: averageTotalCost =
-    totalBeerPrice > 0 ? Math.round(totalMoney / totalCount) : 0;
+
+  $: averageOrderCost =
+    totalBeerPrice > 0 ? Math.round(totalMoney / totalOrderCount) : 0;
   // Number.EPSILON is used to correct for floating point math errors
   $: averageBeerPrice =
     totalBeerPrice > 0
-      ? Math.round(((totalBeerPrice + Number.EPSILON) / totalCount) * 100) / 100
+      ? Math.round(
+          ((totalBeerPrice + Number.EPSILON) / totalOrderCount) * 100
+        ) / 100
       : 0;
 </script>
 
@@ -75,9 +79,12 @@
       Du skylder {owsMoney} kroner for {owsCount} øl
     </div>
     <div>
-      Du har i alt brugt {totalMoney} kroner på {totalCount} øl
+      Du har i alt brugt {totalMoney} kroner på {totalOrderCount} ordre{totalOrderCount >
+      0
+        ? "r"
+        : ""}
     </div>
-    <div>Gennemsnitsordre {averageTotalCost} Kr.</div>
+    <div>Gennemsnitsordre {averageOrderCost} Kr.</div>
     <div>
       Gennemsnitspris: {averageBeerPrice} kr.
     </div>
