@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
-  import { compute_slots } from "svelte/internal";
 
   export let open = true;
 
@@ -21,22 +20,19 @@
     <div
       class="h-full w-full mx-auto md:h-1/2 md:w-2/3 lg:w-2/3 xl:w-2/3 shadow-xl z-50"
     >
-      <div class="flex flex-col justify-between h-full ">
-        <div
+      <div class="flex flex-col justify-between h-full">
+        <slot
+          name="header"
           class="flex flex-row justify-between items-center w-full px-8 py-4 bg-gray-200 text-4xl font-bold"
-        >
-          <slot name="header" />
-        </div>
-        <div
-          class="flex flex-col w-full px-8 py-4 flex-grow overflow-auto bg-white"
-        >
-          <slot name="body" />
-        </div>
-        {#if $$slots.footer}
-          <div class="flex flex-col w-full px-8 py-4 bg-gray-300">
-            <slot name="footer" />
-          </div>
-        {/if}
+        />
+        <slot
+          name="body"
+          class="flex flex-col flex-grow w-full px-8 py-4 overflow-auto bg-white"
+        />
+        <slot
+          class="flex flex-col w-full px-8 py-4 bg-gray-300"
+          name="footer"
+        />
       </div>
     </div>
   </div>
