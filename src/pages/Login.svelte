@@ -43,10 +43,10 @@
   };
 </script>
 
-<div
+<button
   on:click={loginWithGoogle}
-  class="absolute bottom-0 w-full flex flex-row space-x-6 text-4xl justify-center items-end bg-gradient-to-t from-green-600 to-green-700 py-4 text-white"
+  class="flex items-center py-2 px-6 rounded-2xl space-x-6 text-4xl xl:text-6xl bg-gradient-to-t from-green-600 to-green-700 text-white"
 >
   <Fa icon={faUnlockAlt} />
   <div>Login</div>
-</div>
+</button>

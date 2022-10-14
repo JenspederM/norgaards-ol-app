@@ -52,10 +52,12 @@
     <Navbar />
   {:else}
     <div
-      class="flex flex-col flex-grow w-4/5 md:w-1/3 lg:w-1/5 xl:w-1/6 items-center text-center justify-center"
+      class="flex flex-col flex-grow w-3/5 md:w-1/3 lg:w-1/5 xl:w-1/6 items-center text-center justify-center"
     >
       <img src={Logo} alt="logo" />
     </div>
-    <Login />
+    <div class="flex flex-col flex-grow items-center justify-start">
+      <Login />
+    </div>
   {/if}
 </div>
