@@ -4,7 +4,7 @@
     faShoppingCart,
     faTrash,
   } from "@fortawesome/free-solid-svg-icons";
-  import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+  import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore";
   import Fa from "svelte-fa";
   import { db, User } from "../Firebase";
   import { userStore } from "../stores";
@@ -53,6 +53,9 @@
     });
 
     Object.keys(result).forEach(async (beerUid) => {
+      await updateDoc(doc(db, "inventory", beerUid), {
+        nLeft: increment(-result[beerUid].amount),
+      });
       await updateDoc(doc(db, "users", user.uid), {
         beerHistory: arrayUnion(result[beerUid]),
       });
@@ -60,6 +63,7 @@
 
     user.basket.clear();
     isOpen = false;
+    userStore.set(user);
 
     console.debug(user.basket);
   };
