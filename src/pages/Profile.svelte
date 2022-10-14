@@ -47,11 +47,12 @@
     (p, c) => (c.isPayed ? p : p + c.total),
     0
   );
-  $: owsCount = user.beerHistory.filter((c) => !c.isPayed).length;
+  $: owsCount = user.beerHistory
+    .filter((c) => !c.isPayed)
+    .reduce((p, c) => p + c.amount, 0);
 
   $: totalMoney = user.beerHistory.reduce((p, c) => p + c.total, 0);
   $: totalOrderCount = user.beerHistory.length;
-  $: totalBeerCount = user.beerHistory.reduce((p, c) => p + c.amount, 0);
   $: totalBeerPrice = user.beerHistory.reduce((p, c) => p + c.price, 0);
 
   $: averageOrderCost =
@@ -65,29 +66,36 @@
       : 0;
 </script>
 
-<div class="hidden {params.class}">{currentRoute}</div>
-
-<div class="flex flex-col flex-grow overflow-auto text-center py-2">
+<div
+  class="flex flex-col flex-grow items-center justify-center w-full lg:w-2/4 xl:w-1/3 px-4"
+>
+  <div class="hidden {params.class}">{currentRoute}</div>
   <div
-    class="flex flex-row bg-gradient-to-b from-green-800 to-green-600 text-white text-sm sm:text-lg lg:text-2xl items-center w-full justify-between px-4 py-2"
+    class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
   >
-    <Fa icon={faUserAlt} />
-    {user.displayName}
-  </div>
-  <div class="flex flex-col space-y-3 py-3 text-sm sm:text-lg lg:text-2xl">
-    <div class={owsMoney > 0 ? "text-lg font-bold" : ""}>
-      Du skylder {owsMoney} kroner for {owsCount} øl
+    <div
+      class="flex items-center font-bold w-full justify-between bg-gradient-to-b from-green-800 to-green-600 text-white py-2 px-4"
+    >
+      <Fa icon={faUserAlt} />
+      {user.displayName}
     </div>
-    <div>
-      Du har i alt brugt {totalMoney} kroner på {totalOrderCount} ordre{totalOrderCount >
-      0
-        ? "r"
-        : ""}
+    <div
+      class="flex flex-col w-full items-center justify-between bg-gray-50 px-4 py-2 space-y-2"
+    >
+      <div class={owsMoney > 0 ? "text-lg font-bold" : ""}>
+        Du skylder {owsMoney} kroner for {owsCount} øl
+      </div>
+      <div>
+        Du har brugt {totalMoney} kroner på {totalOrderCount} ordre{totalOrderCount >
+        0
+          ? "r"
+          : ""}
+      </div>
+      <div>Gennemsnitsordre {averageOrderCost} Kr.</div>
+      <div>
+        Gennemsnitspris: {averageBeerPrice} kr.
+      </div>
+      <div />
     </div>
-    <div>Gennemsnitsordre {averageOrderCost} Kr.</div>
-    <div>
-      Gennemsnitspris: {averageBeerPrice} kr.
-    </div>
-    <div />
   </div>
 </div>
