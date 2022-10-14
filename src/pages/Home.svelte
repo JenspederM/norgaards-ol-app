@@ -146,15 +146,7 @@
       </div>
     {/each}
   </div>
-
-  <div
-    class="flex w-full justify-center space-x-2 font-bold border-y-4 border-green-600"
-  >
-    <div>Total</div>
-    <div>{total}</div>
-    <div>kr.</div>
-  </div>
-  <div class="flex w-full py-2 text-white space-x-4">
+  <div class="flex w-full py-2 text-white text-sm space-x-4">
     <button
       class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-red-800 to-red-600 px-4 py-2 rounded-xl"
       on:click={() => resetCart()}
