@@ -16,12 +16,10 @@ export default defineConfig({
         enabled: process.env.NODE_ENV === "development",
       },
       manifest: {
-        "background_color": "#ffffff",
-        "theme_color": "#7E1F86",
-        "name": "NørgaardsØlApp.web.app",
-        "short_name": "NørgaardsØlApp.web.app",
+        "name": "Nørgaards Øl App",
+        "short_name": "Øl App",
         "start_url": "/",
-        "display": "standalone",
+        "display": "fullscreen",
         "icons": [
           {
             "src": "/images/icon-128x128.png",
