@@ -2,13 +2,14 @@
   import Modal from "./Modal.svelte";
   import Fa from "svelte-fa";
   import { faBeer, faClose, faTrash } from "@fortawesome/free-solid-svg-icons";
-  import { inventoryStore, userStore } from "../stores";
+  import { userStore } from "../stores";
   import { doc, setDoc } from "firebase/firestore";
   import { Beer, beerConverter, db } from "../Firebase";
+  import Input from "./Input.svelte";
 
   export let isOpen = false;
+
   let user;
-  let inventory;
   let name: string;
   let profit: number;
   let price: number;
@@ -16,10 +17,6 @@
 
   userStore.subscribe((v) => {
     user = v;
-  });
-
-  inventoryStore.subscribe((v) => {
-    inventory = v;
   });
 
   const toggleModal = () => {
@@ -58,85 +55,63 @@
 </script>
 
 <Modal open={isOpen}>
-  <div slot="header" class="flex flex-row justify-between w-full">
-    <div>Opret ny øl</div>
-    <div>
-      <button on:click={() => toggleModal()}>
-        <Fa color="red" icon={faClose} />
-      </button>
-    </div>
-  </div>
-  <div slot="body" class="flex flex-col flex-grow px-8 py-4">
-    <div>
-      <div class="font-bold text-xl pb-2">Hvilket mærke øl har du købt?</div>
-      <input
-        class="border-2 border-black rounded-md p-1 w-2/3"
-        type="text"
-        name="name"
-        id="beer-name"
-        bind:value={name}
-        placeholder="for eksempel 'Tuborg'"
-      />
-    </div>
-    <div>
-      <div class="font-bold text-xl">Hvad kostede kassen?</div>
-      <div class="flex items-center justify-start space-x-2">
-        <input
-          class="border-2 border-black rounded-md p-1 w-2/3"
-          type="number"
-          name="price"
-          id="beer-price"
-          bind:value={price}
-          placeholder="100"
-        />
-        <div class="font-bold text-xl">kroner</div>
-      </div>
-    </div>
-    <div>
-      <div class="font-bold text-xl">Hvor mange øl var der i kassen?</div>
-      <div class="flex items-center justify-start space-x-2">
-        <input
-          class="border-2 border-black rounded-md p-1 w-2/3"
-          type="number"
-          name="amount"
-          id="beer-amount"
-          bind:value={amount}
-          placeholder="24"
-        />
-        <div class="font-bold text-xl">øl</div>
-      </div>
-    </div>
-    <div>
-      <div class="font-bold text-xl">
-        Hvor stor en spildprocent forventer du?
-      </div>
-      <div class="flex items-center justify-start space-x-2">
-        <input
-          class="border-2 border-black rounded-md p-1 w-2/3"
-          type="number"
-          name="price"
-          id="beer-profit"
-          bind:value={profit}
-          placeholder="20"
-        />
-        <div class="font-bold text-xl">%</div>
-      </div>
-    </div>
-  </div>
-  <div slot="footer" class="flex flex-row justify-between rounded-b-2xl">
+  <div
+    slot="header"
+    class="flex items-center justify-between text-xl font-bold py-4 px-8 bg-gradient-to-b from-green-800 to-green-700 text-white border-b-2 border-green-900"
+  >
+    <div>Ny Øl</div>
     <button
-      class="flex flex-row text-white space-x-2 items-center bg-red-600 py-2 px-4 rounded-xl"
+      class="bg-gradient-to-b from-red-800 to-red-500 px-2 py-1 rounded-full"
       on:click={() => toggleModal()}
     >
-      <div class="font-bold text-xl">Annuller</div>
-      <Fa icon={faTrash} />
+      <Fa color="white" icon={faClose} />
     </button>
-    <button
-      class="flex flex-row text-white space-x-2 items-center bg-green-600 py-2 px-4 rounded-xl"
-      on:click={() => NewInventoryItem()}
-    >
-      <div class="font-bold text-xl">Opret</div>
-      <Fa icon={faBeer} />
-    </button>
+  </div>
+  <div
+    slot="body"
+    class="flex flex-col flex-grow px-8 py-4 bg-gradient-to-b from-green-700 to-green-600"
+  >
+    <Input label="Ølmærke" type="text" placeholder="Tuborg" bind:value={name} />
+    <Input
+      label="Pris for en kasse"
+      type="number"
+      placeholder="130"
+      bind:value={price}
+    />
+    <Input
+      label="Antal øl i kassen"
+      type="number"
+      placeholder="24"
+      bind:value={amount}
+    />
+    <Input
+      label="Forventet spildprocent"
+      type="number"
+      placeholder="10"
+      bind:value={profit}
+    />
+  </div>
+  <div
+    slot="footer"
+    class="flex items-center justify-center px-8 py-4 bg-gradient-to-b from-green-600 to-green-500"
+  >
+    <div class="flex w-1/3 items-center justify-start">
+      <button
+        class="flex space-x-2 items-center py-2 px-4 rounded-xl bg-gradient-to-b from-red-800 to-red-500 text-white outline-double"
+        on:click={() => toggleModal()}
+      >
+        <div>Annuller</div>
+        <Fa icon={faTrash} />
+      </button>
+    </div>
+    <div class="flex w-1/3 items-center justify-end">
+      <button
+        class="flex space-x-2 items-center py-2 px-4 rounded-xl bg-gradient-to-b from-green-800 to-green-500 text-white outline-double"
+        on:click={() => NewInventoryItem()}
+      >
+        <div>Opret</div>
+        <Fa icon={faBeer} />
+      </button>
+    </div>
   </div>
 </Modal>
