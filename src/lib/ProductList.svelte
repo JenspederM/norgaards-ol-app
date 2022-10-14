@@ -52,11 +52,11 @@
   $: beers = stock ? stock.beers.filter((beer) => beer.isActive) : [];
 </script>
 
-<div class="flex flex-col w-full sm:w-2/3 flex-grow overflow-auto">
+<div
+  class="flex text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl flex-col w-full sm:w-2/3 flex-grow overflow-auto"
+>
   {#each beers as beer}
-    <div
-      class="flex items-center w-full px-2 py-2 border-b-2 border-green-600 text-lg sm:text-xl lg:text-2xl"
-    >
+    <div class="flex items-center w-full px-2 py-2 border-b-2 border-green-600">
       <div class="flex items-center w-3/4">
         <div class="flex items-center w-3/5">
           {beer.name}
@@ -69,16 +69,16 @@
       <div class="flex space-x-1 w-2/4 justify-center">
         <button
           on:click={() => removeBeerFromBasket(beer)}
-          class="text-sm p-3 sm:text-lg sm:p-4 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
+          class="px-3 py-2 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
         >
           <Fa icon={faArrowDown} />
         </button>
-        <div class="flex w-1/5 justify-center items-center text-xl px-3">
+        <div class="flex w-1/5 justify-center items-center px-3">
           {cart.filter((el) => el.name === beer.name).length}
         </div>
         <button
           on:click={() => addBeerToBasket(beer)}
-          class="text-sm p-3 sm:text-lg sm:p-4 bg-gradient-to-b from-green-800 to-green-500 rounded-full text-white"
+          class="px-3 py-2 bg-gradient-to-b from-green-800 to-green-500 rounded-full text-white"
         >
           <Fa icon={faArrowUp} />
         </button>
