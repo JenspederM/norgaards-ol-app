@@ -14,7 +14,7 @@
 
 <div class="flex flex-col items-center justify-center absolute inset-0">
   <div
-    class="flex flex-col sm:flex-row items-center py-2 space-y-2 justify-between w-full sm:w-2/3 px-2"
+    class="flex flex-col sm:flex-row w-full sm:w-2/3 items-center justify-between  p-2 space-y-2"
   >
     <div
       class="flex font-['Silkscreen'] text-center text-green-600 text-2xl sm:text-3xl lg:text-4xl xl:text-4xl 2xl:text-6xl"
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="w-full sm:w-2/3 h-1 bg-green-600" />
-  <div class="flex flex-grow w-full sm:w-2/3 justify-center">
+  <div class="flex flex-grow overflow-auto w-full sm:w-2/3 justify-center">
     <Route {currentRoute} {params} />
   </div>
   <div class="w-full sm:w-2/3 h-1 bg-green-600" />

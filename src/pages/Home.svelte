@@ -112,39 +112,41 @@
 
 <div class="flex flex-col justify-center items-center w-full lg:w-2/3 px-4">
   <div class="hidden {params.class}">{currentRoute}</div>
-  <div class="flex flex-col-reverse flex-grow w-full">
+  <div class="flex flex-col-reverse flex-grow w-full overflow-auto">
     {#each beersInStock as beer}
-      <div class="rounded-lg overflow-hidden mt-4">
-        <div
-          class="flex items-center font-['Silkscreen'] w-full justify-between bg-gradient-to-br from-green-800 to-green-600 text-white py-2 px-4"
-        >
-          <div>{beer.name}</div>
-          <div>{beer.salesPrice} Kr.</div>
-        </div>
-        <div class="flex w-full space-x-1 py-2 bg-gray-500 justify-center">
-          <button
-            on:click={() => removeBeerFromBasket(beer)}
-            class="p-2 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
-          >
-            <Fa icon={faMinus} />
-          </button>
+      <div>
+        <div class="rounded-lg overflow-hidden mt-4">
           <div
-            class="flex w-1/5 justify-center items-center px-3 text-xl text-white font-bold font-['Silkscreen']"
+            class="flex items-center font-['Silkscreen'] w-full justify-between bg-gradient-to-br from-green-800 to-green-600 text-white py-2 px-4"
           >
-            {cart.filter((el) => el.name === beer.name).length}
+            <div>{beer.name}</div>
+            <div>{beer.salesPrice} Kr.</div>
           </div>
-          <button
-            disabled={cart.filter((el) => el.name === beer.name).length >=
-              beer.nLeft}
-            on:click={() => addBeerToBasket(beer)}
-            class="p-2 rounded-full text-white {cart.filter(
-              (el) => el.name === beer.name
-            ).length >= beer.nLeft
-              ? 'bg-gray-500'
-              : 'bg-gradient-to-t from-green-800 to-green-500'}"
-          >
-            <Fa icon={faPlus} />
-          </button>
+          <div class="flex w-full space-x-1 py-2 bg-gray-500 justify-center">
+            <button
+              on:click={() => removeBeerFromBasket(beer)}
+              class="p-2 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
+            >
+              <Fa icon={faMinus} />
+            </button>
+            <div
+              class="flex w-1/5 justify-center items-center px-3 text-xl text-white font-bold font-['Silkscreen']"
+            >
+              {cart.filter((el) => el.name === beer.name).length}
+            </div>
+            <button
+              disabled={cart.filter((el) => el.name === beer.name).length >=
+                beer.nLeft}
+              on:click={() => addBeerToBasket(beer)}
+              class="p-2 rounded-full text-white {cart.filter(
+                (el) => el.name === beer.name
+              ).length >= beer.nLeft
+                ? 'bg-gray-500'
+                : 'bg-gradient-to-t from-green-800 to-green-500'}"
+            >
+              <Fa icon={faPlus} />
+            </button>
+          </div>
         </div>
       </div>
     {/each}
