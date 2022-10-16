@@ -44,12 +44,10 @@
   );
 </script>
 
-<div class="flex flex-col flex-grow items-center w-full p-2">
+<div class="flex flex-col flex-grow items-center w-full p-4 space-y-4">
   <div class="hidden {params.class}">{currentRoute}</div>
 
-  <div
-    class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2 py-2"
-  >
+  <div class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2">
     {#each users.sort((a, b) => b.amountOwed - a.amountOwed) as currentUser}
       <div
         class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
@@ -86,7 +84,7 @@
       </div>
     {/each}
   </div>
-  <div class="flex w-full py-2 text-white text-sm space-x-4">
+  <div class="flex w-full text-white text-sm space-x-4">
     <div class="w-full">
       <Navigate
         styles="flex justify-center items-center bg-gradient-to-b from-green-800 to-green-600 rounded-xl"
