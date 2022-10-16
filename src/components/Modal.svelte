@@ -26,7 +26,6 @@
           class="flex flex-row justify-between items-center w-full px-8 py-4 bg-gray-200 text-4xl font-bold"
         />
         <slot
-          name="body"
           class="flex flex-col flex-grow w-full px-8 py-4 overflow-auto bg-white"
         />
         <slot

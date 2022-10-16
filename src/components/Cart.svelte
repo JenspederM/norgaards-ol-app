@@ -87,7 +87,6 @@
     </button>
   </div>
   <div
-    slot="body"
     class="flex flex-col-reverse flex-grow overflow-auto px-8 py-4 space-y-4 bg-gradient-to-b from-green-700 to-green-600"
   >
     <div class="space-y-4">

@@ -68,7 +68,6 @@
     </button>
   </div>
   <div
-    slot="body"
     class="flex flex-col flex-grow px-8 py-4 bg-gradient-to-b from-green-700 to-green-600 overflow-auto"
   >
     <Input label="Ølmærke" type="text" placeholder="Tuborg" bind:value={name} />
