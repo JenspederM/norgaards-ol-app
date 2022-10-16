@@ -68,25 +68,34 @@
   <div class="space-y-4">
     {#each orderedInventory as beer}
       <div
-        class="flex flex-col w-full items-center space-y-2 rounded-lg sm:text-center bg-gray-500 text-white font-bold overflow-hidden"
+        class="flex flex-col w-full items-center space-y-2 sm:space-y-0 rounded-lg sm:text-center bg-gray-500 text-white font-bold overflow-hidden"
       >
         <div
-          class="flex sm:flex-col items-center justify-center w-full space-x-2 sm:space-x-0"
+          class="w-full py-2 px-8 bg-gradient-to-br from-green-800 to-green-600 sm:hidden"
         >
-          <div class="flex flex-col sm:flex-row sm:w-full sm:bg-green-800">
-            <div class="sm:w-1/4">Ølmærke</div>
+          {beer.name}
+        </div>
+        <div
+          class="flex sm:flex-col text-sm xs:text-lg items-center justify-center w-full space-x-2 sm:space-x-0"
+        >
+          <div
+            class="flex py-2 px-8 flex-col sm:flex-row sm:w-full sm:bg-gradient-to-br from-green-800 to-green-600"
+          >
+            <div class="hidden sm:flex sm:w-1/4">Ølmærke</div>
             <div class="sm:w-1/4">Købsdato</div>
             <div class="sm:w-1/4">Øl Tilbage</div>
             <div class="sm:w-1/4">Øl ved Køb</div>
           </div>
           <div class="sm:hidden">
-            <div>:</div>
+            <div class="hidden sm:flex">:</div>
             <div>:</div>
             <div>:</div>
             <div>:</div>
           </div>
-          <div class="flex flex-col sm:flex-row sm:w-full font-normal">
-            <div class="sm:w-1/4">{beer.name}</div>
+          <div
+            class="flex sm:py-2 sm:px-8 flex-col sm:flex-row sm:w-full font-normal"
+          >
+            <div class="hidden sm:flex sm:w-1/4">{beer.name}</div>
             <div class="sm:w-1/4">{beer.purchaseDate.toDateString()}</div>
             <div class="sm:w-1/4">{beer.nLeft}</div>
             <div class="sm:w-1/4">{beer.nBeers}</div>

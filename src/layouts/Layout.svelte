@@ -13,15 +13,13 @@
 </script>
 
 <div class="flex flex-col items-center justify-center absolute inset-0">
-  <div
-    class="flex flex-col sm:flex-row w-full sm:w-2/3 items-center justify-between  p-2 space-y-2"
-  >
+  <div class="flex w-full sm:w-2/3 items-center justify-between p-2 space-y-2">
     <div
-      class="flex font-['Silkscreen'] text-center text-green-600 text-2xl sm:text-3xl lg:text-4xl xl:text-4xl 2xl:text-6xl"
+      class="flex font-['Silkscreen'] text-center text-green-600 text-xl xs:text-2xl sm:text-3xl lg:text-4xl xl:text-4xl 2xl:text-6xl"
     >
       Nørgaards Øl
     </div>
-    <div class="flex w-2/3 sm:w-1/3 justify-center items-center sm:justify-end">
+    <div class="flex w-1/3 sm:w-1/3 justify-center items-center sm:justify-end">
       <img class="h-10" src={FlyingBeer} alt="flyingbeer" />
     </div>
   </div>
