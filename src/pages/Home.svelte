@@ -1,6 +1,7 @@
 <script lang="ts">
   import Fa from "svelte-fa";
   import {
+    faBeer,
     faMinus,
     faPlus,
     faShoppingCart,
@@ -116,7 +117,10 @@
           <div
             class="flex items-center font-['Silkscreen'] w-full justify-between bg-gradient-to-br from-green-800 to-green-600 text-white py-2 px-4"
           >
-            <div>{beer.name}</div>
+            <div class="flex items-center">
+              <Fa icon={faBeer} class="mr-2" />
+              {beer.name}
+            </div>
             <div>{beer.salesPrice} Kr.</div>
           </div>
           <div class="flex w-full space-x-1 py-2 bg-gray-500 justify-center">
