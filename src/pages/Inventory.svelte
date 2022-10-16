@@ -76,10 +76,10 @@
           {beer.name}
         </div>
         <div
-          class="flex sm:flex-col text-sm xs:text-lg items-center justify-center w-full space-x-2 sm:space-x-0"
+          class="flex sm:flex-col text-sm xs:text-lg items-center justify-start w-full px-8 sm:px-0 space-x-2 sm:space-x-0"
         >
           <div
-            class="flex py-2 px-8 flex-col sm:flex-row sm:w-full sm:bg-gradient-to-br from-green-800 to-green-600"
+            class="flex py-2 flex-col sm:px-8 sm:flex-row sm:w-full sm:bg-gradient-to-br from-green-800 to-green-600"
           >
             <div class="hidden sm:flex sm:w-1/4">Ølmærke</div>
             <div class="sm:w-1/4">Købsdato</div>
@@ -93,7 +93,7 @@
             <div>:</div>
           </div>
           <div
-            class="flex sm:py-2 sm:px-8 flex-col sm:flex-row sm:w-full font-normal"
+            class="flex flex-col sm:py-2  sm:px-8 sm:flex-row sm:w-full font-normal"
           >
             <div class="hidden sm:flex sm:w-1/4">{beer.name}</div>
             <div class="sm:w-1/4">{beer.purchaseDate.toDateString()}</div>
@@ -101,7 +101,7 @@
             <div class="sm:w-1/4">{beer.nBeers}</div>
           </div>
         </div>
-        <div class="bg-gray-500 w-full py-2 px-4">
+        <div class="bg-gray-500 w-full px-4 pb-4">
           <div class="flex w-full space-x-2">
             <button
               class="flex items-center justify-center space-x-2 rounded-xl px-4 py-1 w-1/2 bg-gradient-to-b from-red-800 to-red-600"
