@@ -11,7 +11,7 @@
   });
 
   const buttonStyle =
-    "text-sm p-3 sm:text-lg sm:p-4 bg-gradient-to-b from-green-800 to-green-500 rounded-full text-white";
+    "text-md p-3 sm:text-lg sm:p-4 bg-gradient-to-b from-green-800 to-green-500 rounded-full text-white";
 </script>
 
 <!-- A navigation bar that is the width as the screen -->
