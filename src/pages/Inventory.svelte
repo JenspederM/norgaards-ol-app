@@ -68,37 +68,43 @@
   <div class="space-y-4">
     {#each orderedInventory as beer}
       <div
-        class="flex flex-col w-full items-center space-y-2 sm:space-y-0 rounded-lg sm:text-center bg-gray-500 text-white font-bold overflow-hidden"
+        class="flex flex-col w-full items-center space-y-2 sm:space-y-0 rounded-lg lg:text-center bg-gray-500 text-white font-bold overflow-hidden"
       >
         <div
-          class="w-full py-2 px-8 bg-gradient-to-br from-green-800 to-green-600 sm:hidden"
+          class="w-full text-lg py-2 px-8 bg-gradient-to-br from-green-800 to-green-600 lg:hidden"
         >
           {beer.name}
         </div>
         <div
-          class="flex sm:flex-col text-sm xs:text-lg items-center justify-start w-full px-8 sm:px-0 space-x-2 sm:space-x-0"
+          class="flex lg:flex-col text-sm xs:text-lg items-center justify-start w-full px-8 lg:px-0 space-x-2 lg:space-x-0"
         >
           <div
-            class="flex py-2 flex-col sm:px-8 sm:flex-row sm:w-full sm:bg-gradient-to-br from-green-800 to-green-600"
+            class="flex py-2 flex-col lg:px-8 lg:flex-row lg:w-full lg:bg-gradient-to-br from-green-800 to-green-600"
           >
-            <div class="hidden sm:flex sm:w-1/4">Ølmærke</div>
-            <div class="sm:w-1/4">Købsdato</div>
-            <div class="sm:w-1/4">Øl Tilbage</div>
-            <div class="sm:w-1/4">Øl ved Køb</div>
+            <div class="hidden sm:flex lg:w-1/4">Ølmærke</div>
+            <div class="lg:w-1/4">Købsdato</div>
+            <div class="lg:w-1/4">Øl Tilbage</div>
+            <div class="lg:w-1/4">Øl ved Køb</div>
+            <div class="lg:w-1/4">Købspris</div>
+            <div class="lg:w-1/4">Salgspris</div>
           </div>
-          <div class="sm:hidden">
-            <div class="hidden sm:flex">:</div>
+          <div class="lg:hidden">
+            <div class="hidden lg:flex">:</div>
+            <div>:</div>
+            <div>:</div>
             <div>:</div>
             <div>:</div>
             <div>:</div>
           </div>
           <div
-            class="flex flex-col sm:py-2  sm:px-8 sm:flex-row sm:w-full font-normal"
+            class="flex flex-col lg:py-2 lg:px-8 lg:flex-row lg:w-full font-normal"
           >
-            <div class="hidden sm:flex sm:w-1/4">{beer.name}</div>
-            <div class="sm:w-1/4">{beer.purchaseDate.toDateString()}</div>
-            <div class="sm:w-1/4">{beer.nLeft}</div>
-            <div class="sm:w-1/4">{beer.nBeers}</div>
+            <div class="hidden lg:flex lg:w-1/4">{beer.name}</div>
+            <div class="lg:w-1/4">{beer.purchaseDate.toDateString()}</div>
+            <div class="lg:w-1/4">{beer.nLeft}</div>
+            <div class="lg:w-1/4">{beer.nBeers}</div>
+            <div class="lg:w-1/4">{beer.price}</div>
+            <div class="lg:w-1/4">{beer.salesPrice}</div>
           </div>
         </div>
         <div class="bg-gray-500 w-full px-4 pb-4">
