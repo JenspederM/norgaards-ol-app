@@ -81,7 +81,6 @@
           <div
             class="flex py-2 flex-col lg:px-8 lg:flex-row lg:w-full lg:bg-gradient-to-br from-green-800 to-green-600"
           >
-            <div class="hidden sm:flex lg:w-1/4">Ølmærke</div>
             <div class="lg:w-1/4">Købsdato</div>
             <div class="lg:w-1/4">Øl Tilbage</div>
             <div class="lg:w-1/4">Øl ved Køb</div>
