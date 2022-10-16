@@ -9,15 +9,15 @@ export default defineConfig({
     svelte(),
     VitePWA({
       workbox: {
-        globPatterns: ['**/*.{js,ts,css,html,svg,png}'],
+        globPatterns: ['**/*.{js,ts,css,html,svg,png,ttf}'],
       },
       registerType: "autoUpdate",
       devOptions: {
         enabled: process.env.NODE_ENV === "development",
       },
       manifest: {
-        "name": "Nørgaards Øl App",
-        "short_name": "Øl App",
+        "name": "Nørgaards Øl",
+        "short_name": "Nørgaards Øl",
         "start_url": "/",
         "display": "fullscreen",
         "icons": [

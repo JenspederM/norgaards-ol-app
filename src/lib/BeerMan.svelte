@@ -6,16 +6,18 @@
   export let cart = [];
 </script>
 
-<div
-  class="flex flex-row justify-center overflow-auto items-center w-full h-1/5"
->
-  {#each cart as _}
-    <img
-      transition:fly={{ x: 50, duration: 500 }}
-      class="w- pt-4"
-      src={Beer}
-      alt="beer"
-    />
-  {/each}
-  <img class="w-5/12  md:w-2/12" src={FlyingBeer} alt="flyingbeer" />
+<div class="flex py-4">
+  <div class="flex flex-row-reverse items-center flex-wrap">
+    {#each cart as _}
+      <img
+        transition:fly={{ x: 30, duration: 500 }}
+        class="h-10"
+        src={Beer}
+        alt="beer"
+      />
+    {/each}
+  </div>
+  <div class="w-full">
+    <img class="min-h-20" src={FlyingBeer} alt="flyingbeer" />
+  </div>
 </div>

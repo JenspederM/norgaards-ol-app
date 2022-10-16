@@ -16,7 +16,7 @@
 
 <!-- A navigation bar that is the width as the screen -->
 <div
-  class="flex flex-row space-x-4 text-xl pb-8 lg:pb-2 pt-2 w-full items-center justify-center border-t-4 border-green-600"
+  class="flex flex-row space-x-4 text-xl py-2 w-full items-center justify-center"
 >
   <Navigate to="/profile">
     <button class={buttonStyle}>

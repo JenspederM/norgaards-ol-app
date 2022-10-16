@@ -4,7 +4,6 @@
   import Fa from "svelte-fa";
   import { faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
   import { isLoading, userStore } from "../stores";
-  import type { UserData } from "../types";
   import { doc, getDoc, setDoc } from "firebase/firestore";
   import { navigateTo } from "svelte-router-spa";
 
@@ -46,10 +45,14 @@
   };
 </script>
 
-<button
-  on:click={loginWithGoogle}
-  class="flex items-center py-2 px-6 rounded-2xl space-x-6 text-4xl xl:text-6xl bg-gradient-to-t from-green-600 to-green-700 text-white"
+<div
+  class="flex flex-col justify-center items-center w-full absolute inset-0 bg-gray-800"
 >
-  <Fa icon={faUnlockAlt} />
-  <div>Login</div>
-</button>
+  <button
+    on:click={loginWithGoogle}
+    class="flex items-center py-4 px-6 rounded-2xl space-x-3 bg-gradient-to-t from-green-600 to-green-700 text-white"
+  >
+    <Fa class="text-2xl xl:text-3xl" icon={faUnlockAlt} />
+    <div class="text-4xl xl:text-4xl">Login</div>
+  </button>
+</div>

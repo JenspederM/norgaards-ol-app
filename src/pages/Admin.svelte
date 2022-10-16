@@ -5,13 +5,11 @@
   import Fa from "svelte-fa";
   import {
     faBeer,
-    faBinoculars,
     faBoxArchive,
-    faPlusCircle,
     faRefresh,
+    faUserAlt,
   } from "@fortawesome/free-solid-svg-icons";
   import { Navigate } from "svelte-router-spa";
-  import { isLoading } from "../stores";
 
   export let currentRoute;
   export let params;
@@ -46,35 +44,36 @@
   );
 </script>
 
-<div class="flex flex-col flex-grow items-center w-full px-4">
+<div class="flex flex-col flex-grow items-center w-full p-2">
   <div class="hidden {params.class}">{currentRoute}</div>
 
   <div
     class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2 py-2"
   >
-    {#each users.sort((a, b) => b.getAmountOwed() - a.getAmountOwed()) as currentUser}
+    {#each users.sort((a, b) => b.amountOwed - a.amountOwed) as currentUser}
       <div
         class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
       >
         <div
-          class="flex w-full items-center justify-between font-bold text-white py-2 px-4 bg-gradient-to-b {currentUser.getAmountOwed() >
+          class="flex font-['Silkscreen'] justify-between items-center font-bold w-full px-4 py-2 text-white {currentUser.amountOwed >
           0
-            ? 'from-red-800 to-red-600'
-            : 'from-green-800 to-green-600'}"
+            ? 'bg-gradient-to-br from-red-800 to-red-600'
+            : 'bg-gradient-to-br from-green-800 to-green-600'}"
         >
-          <div>{currentUser.displayName}</div>
+          <Fa icon={faUserAlt} />
+          {currentUser.displayName}
         </div>
         <div
-          class="flex w-full items-center justify-between bg-gray-50 px-4 py-2"
+          class="flex w-full items-center justify-between bg-gray-500 text-white px-4 py-2"
         >
-          <div class={currentUser.getAmountOwed() > 0 ? "font-bold" : ""}>
-            Skylder: {currentUser.getAmountOwed()} Kr.
+          <div class={currentUser.amountOwed > 0 ? "font-bold" : ""}>
+            Skylder: {currentUser.amountOwed} Kr.
           </div>
           <div>
             <button
-              disabled={currentUser.getAmountOwed() === 0}
+              disabled={currentUser.amountOwed === 0}
               on:click={() => resetUser(currentUser)}
-              class="flex w-full items-center space-x-2 justify-center text-white py-1 px-4 rounded-xl {currentUser.getAmountOwed() >
+              class="flex w-full items-center space-x-2 justify-center text-white py-1 px-4 rounded-xl {currentUser.amountOwed >
               0
                 ? 'bg-gradient-to-b from-red-800 to-red-600'
                 : 'bg-gray-400'}"

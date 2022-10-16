@@ -38,16 +38,16 @@
     let result = {};
     items.forEach((beer) => {
       if (result[beer.uid]) {
-        result[beer.uid].total += beer.salesPrice();
+        result[beer.uid].total += beer.salesPrice;
         result[beer.uid].amount += 1;
       } else {
         result[beer.uid] = {
-          total: beer.salesPrice(),
+          total: beer.salesPrice,
           amount: 1,
           date: new Date(),
           isPayed: false,
           name: beer.uid,
-          price: beer.salesPrice(),
+          price: beer.salesPrice,
         };
       }
     });
@@ -69,7 +69,7 @@
   };
 
   $: cart = user.basket.getItems();
-  $: total = cart.reduce((acc, item) => acc + item.salesPrice(), 0);
+  $: total = cart.reduce((acc, item) => acc + item.salesPrice, 0);
   $: uniqueItems = cart.filter(onlyUnique);
 </script>
 
@@ -88,46 +88,48 @@
   </div>
   <div
     slot="body"
-    class="flex flex-col-reverse flex-grow px-8 py-4 space-y-4 bg-gradient-to-b from-green-700 to-green-600"
+    class="flex flex-col-reverse flex-grow overflow-auto px-8 py-4 space-y-4 bg-gradient-to-b from-green-700 to-green-600"
   >
-    {#each uniqueItems as beer}
-      <div
-        class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
-      >
-        <div class="flex flex-col w-full sm:flex-row sm:text-center">
-          <div class="flex sm:flex-col justify-between w-full">
-            <div class="font-bold">Ølmærke</div>
-            <div>{beer.name}</div>
-          </div>
-          <div class="flex sm:flex-col justify-between w-full">
-            <div class="font-bold">Stk</div>
-            <div>{cart.filter((item) => item.uid === beer.uid).length}</div>
-          </div>
-          <div class="flex sm:flex-col justify-between w-full">
-            <div class="font-bold">Pris per stk.</div>
-            <div>{beer.salesPrice()}</div>
-          </div>
-          <div class="flex sm:flex-col justify-between w-full">
-            <div class="font-bold">Total</div>
-            <div>
-              {cart.filter((el) => el.name == beer.name).length *
-                beer.salesPrice()}
+    <div class="space-y-4">
+      {#each uniqueItems as beer}
+        <div
+          class="flex flex-col items-center px-4 py-2 bg-white border-2 space-y-2 rounded-xl"
+        >
+          <div class="flex flex-col w-full sm:flex-row sm:text-center">
+            <div class="flex sm:flex-col justify-between w-full">
+              <div class="font-bold">Ølmærke</div>
+              <div>{beer.name}</div>
+            </div>
+            <div class="flex sm:flex-col justify-between w-full">
+              <div class="font-bold">Stk</div>
+              <div>{cart.filter((item) => item.uid === beer.uid).length}</div>
+            </div>
+            <div class="flex sm:flex-col justify-between w-full">
+              <div class="font-bold">Pris per stk.</div>
+              <div>{beer.salesPrice}</div>
+            </div>
+            <div class="flex sm:flex-col justify-between w-full">
+              <div class="font-bold">Total</div>
+              <div>
+                {cart.filter((el) => el.name == beer.name).length *
+                  beer.salesPrice}
+              </div>
             </div>
           </div>
+          <div class="flex w-full space-x-2">
+            <button
+              on:click={() => removeBeers(beer)}
+              class="flex flex-row space-x-2 px-4 py-2 rounded-xl items-center justify-center bg-gradient-to-b from-red-800 to-red-600 w-full text-white"
+            >
+              <div>
+                <Fa icon={faTrash} />
+              </div>
+              <div>Slet</div>
+            </button>
+          </div>
         </div>
-        <div class="flex w-full space-x-2">
-          <button
-            on:click={() => removeBeers(beer)}
-            class="flex flex-row space-x-2 px-4 py-2 rounded-xl items-center justify-center bg-gradient-to-b from-red-800 to-red-600 w-full text-white"
-          >
-            <div>
-              <Fa icon={faTrash} />
-            </div>
-            <div>Slet</div>
-          </button>
-        </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
   </div>
   <div
     slot="footer"

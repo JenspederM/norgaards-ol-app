@@ -3,7 +3,8 @@
   import {
     faArrowDown,
     faArrowUp,
-    faDollarSign,
+    faMinus,
+    faPlus,
     faShoppingCart,
     faTrashAlt,
   } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +19,7 @@
     updateDoc,
   } from "firebase/firestore";
   import Cart from "../components/Cart.svelte";
+  import BeerMan from "../lib/BeerMan.svelte";
 
   export let currentRoute;
   export let params;
@@ -57,17 +59,17 @@
 
     user.basket.items.forEach((beer) => {
       if (result[beer.uid]) {
-        result[beer.uid].total += beer.salesPrice();
+        result[beer.uid].total += beer.salesPrice;
         result[beer.uid].amount += 1;
       } else {
         result[beer.uid] = {
-          total: beer.salesPrice(),
+          total: beer.salesPrice,
           amount: 1,
           date: new Date(),
           isPayed: false,
           uid: beer.uid,
           name: beer.name,
-          price: beer.salesPrice(),
+          price: beer.salesPrice,
         };
       }
       user.basket.clear();
@@ -93,7 +95,7 @@
     console.debug(user.basket);
   };
 
-  const resetCart = () => {
+  const resetCart = async () => {
     user.basket.clear();
     userStore.set(user);
   };
@@ -102,72 +104,66 @@
     isCartOpen = true;
   };
 
-  $: total = user.basket
-    .getItems()
-    .reduce((acc, item) => acc + item.salesPrice(), 0);
-
   $: cart = user.basket.getItems();
   $: beersInStock = inventory
     ? inventory.filter((beer) => beer.isActive && beer.nLeft > 0)
     : [];
 </script>
 
-<div class="flex flex-col items-center flex-grow w-full px-4">
+<div class="flex flex-col justify-center items-center w-full lg:w-2/3 px-4">
   <div class="hidden {params.class}">{currentRoute}</div>
-
-  <div
-    class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2 py-2"
-  >
+  <div class="flex flex-col-reverse flex-grow w-full">
     {#each beersInStock as beer}
-      <div
-        class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
-      >
+      <div class="rounded-lg overflow-hidden mt-4">
         <div
-          class="flex items-center font-bold w-full justify-between bg-gradient-to-b from-green-800 to-green-600 text-white py-2 px-4"
+          class="flex items-center font-['Silkscreen'] w-full justify-between bg-gradient-to-br from-green-800 to-green-600 text-white py-2 px-4"
         >
           <div>{beer.name}</div>
-          <div>{beer.salesPrice()} Kr.</div>
+          <div>{beer.salesPrice} Kr.</div>
         </div>
-        <div class="flex w-full space-x-1 py-2 bg-gray-50 justify-center">
+        <div class="flex w-full space-x-1 py-2 bg-gray-500 justify-center">
           <button
             on:click={() => removeBeerFromBasket(beer)}
-            class="px-3 py-2 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
+            class="p-2 bg-gradient-to-b from-red-800 to-red-500 rounded-full text-white"
           >
-            <Fa icon={faArrowDown} />
+            <Fa icon={faMinus} />
           </button>
-          <div class="flex w-1/5 justify-center items-center px-3">
+          <div
+            class="flex w-1/5 justify-center items-center px-3 text-xl text-white font-bold font-['Silkscreen']"
+          >
             {cart.filter((el) => el.name === beer.name).length}
           </div>
           <button
             disabled={cart.filter((el) => el.name === beer.name).length >=
               beer.nLeft}
             on:click={() => addBeerToBasket(beer)}
-            class="px-3 py-2 rounded-full text-white {cart.filter(
+            class="p-2 rounded-full text-white {cart.filter(
               (el) => el.name === beer.name
             ).length >= beer.nLeft
               ? 'bg-gray-500'
-              : 'bg-gradient-to-b from-green-800 to-green-500'}"
+              : 'bg-gradient-to-t from-green-800 to-green-500'}"
           >
-            <Fa icon={faArrowUp} />
+            <Fa icon={faPlus} />
           </button>
         </div>
       </div>
     {/each}
   </div>
-  <div class="flex w-full py-2 text-white text-sm space-x-4">
+
+  <div class="flex w-full py-4 text-white text-sm space-x-4">
     <button
-      class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-red-800 to-red-600 px-4 py-2 rounded-xl"
+      class="flex w-full rounded-lg font-['Silkscreen'] justify-center items-center space-x-2 bg-gradient-to-b from-red-800 to-red-600 px-4 py-2"
       on:click={() => resetCart()}
     >
       <Fa icon={faTrashAlt} />
-      <div>Ryd Alt</div>
+      <div>Nulstil</div>
     </button>
     <button
-      class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+      class="flex w-full rounded-lg font-['Silkscreen'] justify-center items-center space-x-2 bg-gradient-to-t from-green-800 to-green-600 px-4 py-2"
       on:click={() => toggleCart()}
     >
       <Fa icon={faShoppingCart} />
-      <div>Kurv</div>
+      <div>Køb</div>
     </button>
   </div>
 </div>

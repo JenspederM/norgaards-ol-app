@@ -42,11 +42,6 @@
     {
       name: "/login",
       component: Login,
-      layout: Layout,
-      onlyIf: {
-        guard: () => !userExists(),
-        redirect: "/",
-      },
     },
     {
       name: "/403",

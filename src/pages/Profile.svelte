@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Navigate } from "svelte-router-spa";
   import { userStore } from "../stores";
   import Fa from "svelte-fa";
   import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
@@ -51,51 +50,43 @@
     .filter((c) => !c.isPayed)
     .reduce((p, c) => p + c.amount, 0);
 
-  $: totalMoney = user.beerHistory.reduce((p, c) => p + c.total, 0);
   $: totalOrderCount = user.beerHistory.length;
-  $: totalBeerPrice = user.beerHistory.reduce((p, c) => p + c.price, 0);
+  $: totalBeerCount = user.beerHistory.reduce((p, c) => p + c.amount, 0);
 
+  $: totalCost = user.beerHistory.reduce((p, c) => p + c.total, 0);
   $: averageOrderCost =
-    totalBeerPrice > 0 ? Math.round(totalMoney / totalOrderCount) : 0;
-  // Number.EPSILON is used to correct for floating point math errors
+    totalCost > 0 ? Math.round(totalCost / totalOrderCount) : 0;
+
+  $: totalBeerPrice = user.beerHistory.reduce((p, c) => p + c.price, 0);
   $: averageBeerPrice =
     totalBeerPrice > 0
       ? Math.round(
-          ((totalBeerPrice + Number.EPSILON) / totalOrderCount) * 100
+          ((totalBeerPrice + Number.EPSILON) / totalOrderCount) * 100 // Number.EPSILON is used to correct for floating point math errors
         ) / 100
       : 0;
 </script>
 
-<div
-  class="flex flex-col flex-grow items-center justify-center w-full lg:w-2/4 xl:w-1/3 px-4"
->
+<div class="flex flex-col items-center justify-end p-4">
   <div class="hidden {params.class}">{currentRoute}</div>
-  <div
-    class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
-  >
+
+  <div class="rounded-lg overflow-hidden ">
     <div
-      class="flex items-center font-bold w-full justify-between bg-gradient-to-b from-green-800 to-green-600 text-white py-2 px-4"
+      class="flex font-['Silkscreen'] items-center font-bold w-full justify-between bg-gradient-to-br from-green-800 to-green-600 text-white py-2 px-4"
     >
       <Fa icon={faUserAlt} />
       {user.displayName}
     </div>
-    <div
-      class="flex flex-col w-full items-center justify-between bg-gray-50 px-4 py-2 space-y-2"
-    >
-      <div class={owsMoney > 0 ? "text-lg font-bold" : ""}>
-        Skylder: {owsMoney} kr. for {owsCount} øl
+    <div class="w-full text-sm bg-gray-500 px-4 py-2 text-white">
+      {#if owsMoney > 0}
+        <div class="text-lg font-bold">
+          Du skylder {owsMoney} kr. for {owsCount} øl.
+        </div>
+      {/if}
+      <div class="text-md font-bold">
+        Du har i alt brugt {totalCost} kr. på {totalBeerCount} øl fordelt over
+        {totalOrderCount} køb. Altså har du i gennemsnit betalt
+        {averageOrderCost} kr. pr. køb og {averageBeerPrice} kr. pr. øl.
       </div>
-      <div>
-        Total: {totalMoney} kroner på {totalOrderCount} ordre{totalOrderCount >
-        0
-          ? "r"
-          : ""}
-      </div>
-      <div>Gennemsnitsordre {averageOrderCost} Kr.</div>
-      <div>
-        Gennemsnitspris: {averageBeerPrice} kr.
-      </div>
-      <div />
     </div>
   </div>
 </div>
