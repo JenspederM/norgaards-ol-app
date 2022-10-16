@@ -1,8 +1,6 @@
 <script lang="ts">
   import Fa from "svelte-fa";
   import {
-    faArrowDown,
-    faArrowUp,
     faMinus,
     faPlus,
     faShoppingCart,
@@ -18,8 +16,7 @@
     onSnapshot,
     updateDoc,
   } from "firebase/firestore";
-  import Cart from "../components/Cart.svelte";
-  import BeerMan from "../lib/BeerMan.svelte";
+  import Cart from "../lib/Cart.svelte";
 
   export let currentRoute;
   export let params;

@@ -6,9 +6,10 @@
   import Admin from "./pages/Admin.svelte";
   import Profile from "./pages/Profile.svelte";
   import Inventory from "./pages/Inventory.svelte";
-  import Unauthorized from "./lib/403.svelte";
+  import Unauthorized from "./pages/403.svelte";
   import Layout from "./layouts/Layout.svelte";
   import RegisterSw from "./lib/registerSW.svelte";
+  import NewItem from "./pages/NewItem.svelte";
 
   let user;
 
@@ -73,6 +74,15 @@
         redirect: "/login",
       },
       component: Inventory,
+      layout: Layout,
+    },
+    {
+      name: "/new",
+      onlyIf: {
+        guard: () => userIsAdmin(),
+        redirect: "/login",
+      },
+      component: NewItem,
       layout: Layout,
     },
   ];

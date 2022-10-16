@@ -99,15 +99,17 @@
       </Navigate>
     </div>
     <div class="w-full">
-      <button
-        on:click={() => toggleOpenCreateNewBeer()}
-        class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+      <Navigate
+        styles="flex justify-center items-center bg-gradient-to-b from-green-800 to-green-600 rounded-xl"
+        to="/new"
       >
-        <Fa icon={faBeer} />
-        <div>Ny Øl</div>
-      </button>
+        <button
+          class="flex w-full justify-center items-center space-x-2 bg-gradient-to-b from-green-800 to-green-600 px-4 py-2 rounded-xl"
+        >
+          <Fa icon={faBeer} />
+          <div>Ny Øl</div>
+        </button>
+      </Navigate>
     </div>
   </div>
 </div>
-
-<NewInventoryItem bind:isOpen={isCreateNewBeerOpen} />

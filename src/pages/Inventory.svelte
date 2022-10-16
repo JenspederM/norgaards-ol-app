@@ -119,7 +119,7 @@
 </div>
 
 <Modal bind:open={confirmOpen}>
-  <div slot="body" class="flex flex-col items-center justify-center h-full">
+  <div class="flex flex-col items-center justify-center h-full">
     <div class="flex flex-col items-center bg-white px-4 py-2 rounded-xl">
       <div>Bekræft sletning af</div>
       <div class="font-bold">

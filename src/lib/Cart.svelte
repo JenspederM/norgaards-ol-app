@@ -8,7 +8,7 @@
   import Fa from "svelte-fa";
   import { db, User } from "../Firebase";
   import { userStore } from "../stores";
-  import Modal from "./Modal.svelte";
+  import Modal from "../components/Modal.svelte";
 
   export let isOpen;
 

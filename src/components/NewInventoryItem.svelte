@@ -5,7 +5,7 @@
   import { userStore } from "../stores";
   import { doc, setDoc } from "firebase/firestore";
   import { Beer, beerConverter, db } from "../Firebase";
-  import Input from "./Input.svelte";
+  import Input from "../lib/Input.svelte";
 
   export let isOpen = false;
 

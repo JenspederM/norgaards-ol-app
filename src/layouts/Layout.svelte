@@ -1,7 +1,7 @@
 <script lang="ts">
   import FlyingBeer from "../assets/FlyingBeer-3.svg";
   import { Route } from "svelte-router-spa";
-  import Navbar from "../components/Navbar.svelte";
+  import Navbar from "../lib/Navbar.svelte";
   import { isLoading } from "../stores";
 
   export let currentRoute;
