@@ -47,7 +47,7 @@
 <div class="flex flex-col flex-grow items-center w-full p-4 space-y-4">
   <div class="hidden {params.class}">{currentRoute}</div>
 
-  <div class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-2">
+  <div class="flex flex-col-reverse flex-grow w-full overflow-auto space-y-4">
     {#each users.sort((a, b) => b.amountOwed - a.amountOwed) as currentUser}
       <div
         class="flex flex-col justify-center items-center w-full rounded-xl overflow-hidden"
@@ -82,6 +82,7 @@
           </div>
         </div>
       </div>
+      <div />
     {/each}
   </div>
   <div class="flex w-full text-white text-sm space-x-4">
